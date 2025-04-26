@@ -1,0 +1,15 @@
+(executable
+ (public_name imageCompressor)
+ (name main)
+ (libraries)
+ (modules
+    main
+    file_io
+    types
+    math
+    parse_file
+    k_means
+    centroid
+    color
+ )
+)

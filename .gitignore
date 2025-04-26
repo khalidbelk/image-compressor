@@ -1,0 +1,6 @@
+# Dune build and generated files
+_build/
+oiec
+
+# Executable
+imageCompressor
