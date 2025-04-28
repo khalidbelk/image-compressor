@@ -40,14 +40,24 @@ make
 For **image** compression
 
 ```
-USAGE: ./imageCompressor -k K <path_to_image.jpg>
+USAGE: ./imageCompressor [OPTIONS] -k K <input_image_filepath> [<output_filepath>]
 
-      K       number of colors in the final image
+    OPTIONS:
+            -h       display this message
+
+    ARGS:
+            K                       number of colors in the final image
+
+            <output_filepath>       optional path/name for the compressed image
+                                    Default: overwrites input image
 ```
 
-**Example**
+**Examples**
 
-`$ ./imageCompressor -k 16 my_photo.jpg`
+`$ ./imageCompressor -k 3 my_photo.jpg`
+
+`$ ./imageCompressor -k 10 my_photo.png ~/Documents/compressed_photo`
+
 
 <br>
 
@@ -56,11 +66,15 @@ For **pixel clusterization** (the input file should contain points and colors).
 Here are some [input files examples](/examples/text-inputs/)
 
 ```
-USAGE: ./imageCompressor -n N -l L -f F
+USAGE: ./imageCompressor [OPTIONS] -n N -l L -f F
 
-      N       number of colors in the final image
-      L       convergence limit
-      F       path to the file containing the colors of the pixels
+    OPTIONS:
+            -h       display this message
+
+    ARGS:
+            N       number of colors in the final image
+            L       convergence limit
+            F       path to the file containing the colors of the pixels
 ```
 **Example**
 

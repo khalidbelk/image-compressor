@@ -6,11 +6,14 @@
 
 let image_comp_usage =
   "IMAGE COMPRESSION MODE\n\n"
-  ^ "\t./imageCompressor [OPTIONS] -k K <input_image_filepath> \n\n"
+  ^ "\t./imageCompressor [OPTIONS] -k K <input_image_filepath> [<output_filepath>] \n\n"
   ^ "\tOPTIONS:\n"
   ^ "\t     -h       display this message\n\n"
   ^ "\tARGS:\n"
-  ^ "\t      K       number of colors in the final image"
+  ^ "\t      K                      number of colors in the final image\n\n"
+  ^ "\t     <output_filepath>       optional path/name for the compressed image
+                                     Default: overwrites input image
+    "
   ^ "\t\n"
 
 let print_clustering_usage =
