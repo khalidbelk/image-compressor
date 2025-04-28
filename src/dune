@@ -5,6 +5,7 @@
  (libraries camlimages.core camlimages.gif camlimages.jpeg camlimages.png)
  (modules
     main
+    utils
     file_io
     types
     math

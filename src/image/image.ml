@@ -7,6 +7,7 @@
 open Images
 open Types
 open K_means
+open File_io
 
 let get_pixel img x y =
   let rgb = Rgb24.get img x y in
@@ -32,7 +33,6 @@ let read_image filepath =
   with
   | exn -> failwith ("Error: " ^ Printexc.to_string exn)
 
-
 let color_to_target (r, g, b) = { Color.r; g; b }
 
 let reconstruct_image (pixels: pixel list) w h =
@@ -44,15 +44,18 @@ let reconstruct_image (pixels: pixel list) w h =
     ) pixels;
   img
 
-let save_image (img: Rgb24.t) =
-  let filename = "compressed.jpg" in
-  Images.save filename None [] (Images.Rgb24 img)
+let save_image (img: Rgb24.t) input_filepath (out_filepath: string option)  =
+  match out_filepath with
+  | Some name ->
+      let out_filepath = handle_out_name input_filepath name in
+      Images.save out_filepath None [] (Images.Rgb24 img)
+  | None -> Images.save input_filepath None [] (Images.Rgb24 img)
 
 let compress_image k pixels w h =
   let k = int_of_string k in
   let compressed_pixels = k_means k 0.2 pixels ReplacePixels in
   match compressed_pixels with
   | Pixels ps ->
-    let image = reconstruct_image ps w h in
-    save_image image;
+    let image = reconstruct_image ps w h
+    in image;
   | _ -> failwith "Unexpected result type"
