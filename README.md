@@ -7,9 +7,9 @@ This version reproduces the core **pixel clustering** functionality and also inc
 
 <table align="center">
   <tr>
-    <td><img src="inputs/sahara.jpg" height="250"/></td>
-    <td><img src="outputs/sahara_k10.jpg" height="250"/></td>
-    <td><img src="outputs/sahara_k3.jpg" height="250"/></td>
+    <td><img src="examples/inputs/sahara.jpg" height="200"/></td>
+    <td><img src="examples/outputs/sahara_k10.jpg" height="200"/></td>
+    <td><img src="examples/outputs/sahara_k3.jpg" height="200"/></td>
   </tr>
   <tr align="center">
     <td><i>Original</i></td>
