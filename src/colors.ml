@@ -12,15 +12,15 @@ let round x = int_of_float (x +. 0.5)
 let nearest_centroid color centroids =
   let pairs = with_distances centroids color in
   match pairs with
-    | [] -> invalid_arg "Empty centroids list"
-    | first :: rest ->
-        let _, best =
-          List.fold_left (fun (current_min, best_c) (dist, c) ->
-            if dist < current_min then (dist, c)
-            else (current_min, best_c)
-          ) first rest
-        in
-          best (* Return centroid only *)
+  | [] -> invalid_arg "Empty centroids list"
+  | first :: rest ->
+      let _, best =
+        List.fold_left (fun (current_min, best_c) (dist, c) ->
+          if dist < current_min then (dist, c)
+          else (current_min, best_c)
+        ) first rest
+      in
+        best (* Return centroid only *)
 
 (* Calculates the mean color of all pixels in a cluster *)
 let mean_color pixels =

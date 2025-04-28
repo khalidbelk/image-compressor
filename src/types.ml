@@ -14,3 +14,10 @@ type cluster = {
   centroid: color;
   members: pixel list
 }
+
+(* Used for k_means *)
+type action = PrintClusters | ReplacePixels
+
+type result =
+  | Clusters of (color * pixel list) list
+  | Pixels of pixel list

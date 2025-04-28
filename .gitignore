@@ -4,3 +4,6 @@ oiec
 
 # Executable
 imageCompressor
+
+# MacOS file
+.DS_Store

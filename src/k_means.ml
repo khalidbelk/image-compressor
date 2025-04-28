@@ -4,10 +4,9 @@
   File: k_means.ml
 *)
 
-open File_io
-open Parse_file
+open Types
 open Centroid
-open Color
+open Colors
 
 (* Generates n random colors. Used to generate the initial centroids *)
 let generate_randcolors n =
@@ -15,10 +14,10 @@ let generate_randcolors n =
   List.init n (fun _ -> (Random.int 255, Random.int 255, Random.int 255))
 
 let calc_new_centroids clusters =
-    clusters
-    |> List.map (fun (_, cluster_pixels) ->
-        mean_color cluster_pixels
-    )
+  clusters
+  |> List.map (fun (_, cluster_pixels) ->
+      mean_color cluster_pixels
+  )
 
 (* Groups (centroid, pixel) pairs into actual clusters *)
 let group_by_centroid pairs =
@@ -39,7 +38,6 @@ let get_clusters pixels centroids =
   let grouped = group_by_centroid assigned
   in grouped
 
-
 (* Returns the clusters and its pixels *)
 let clusterize n l pixels =
   let first_centroids = generate_randcolors n in
@@ -52,7 +50,6 @@ let clusterize n l pixels =
   in
     loop first_centroids (* Call the loop *)
 
-
 let print_clusters clusters =
   List.iter (fun (centroid, pixels) ->
     let (r, g, b) = centroid in
@@ -63,7 +60,19 @@ let print_clusters clusters =
     ) pixels
   ) clusters
 
-let k_means nb_clusters divergence_limit filepath =
-  let parsed_content = filepath |> read_file |> parse_content in
-  let clusterized = clusterize nb_clusters divergence_limit parsed_content
-  in print_clusters clusterized
+let replace_pixels_by_centroid clusterized =
+  let new_colors_list =
+    List.map (fun (centroid, pixels) ->
+      let (r, g, b) = centroid in
+      List.map (fun ((x, y), _) ->
+        ((x, y), (r, g , b))     (* Replace color with centroid *)
+      ) pixels
+    ) clusterized
+  in new_colors_list |> List.flatten
+
+let k_means nb_clusters divergence_limit pixels action =
+  let clusterized = clusterize nb_clusters divergence_limit pixels
+  in
+    match action with
+    | PrintClusters -> Clusters clusterized
+    | ReplacePixels -> Pixels (replace_pixels_by_centroid clusterized)
