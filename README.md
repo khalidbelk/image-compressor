@@ -79,3 +79,53 @@ USAGE: ./imageCompressor [OPTIONS] -n N -l L -f F
 **Example**
 
 `$ ./imageCompressor -n 3 -l 0.2 -f input.txt`
+
+## Diagram
+
+Here's a small **flowchart** representing how the program works.
+
+```mermaid
+graph LR
+
+    subgraph Args[Argument handling]
+        A[Parse args] --> B[Determine mode]
+    end
+
+    subgraph ImageCompressionPath[Image Compression]
+        D[
+            Read & Parse
+            Image pixels
+        ]
+        H[Reconstruct image]
+        G[Save compressed Image]
+        B --> D
+        H --> G
+    end
+
+    subgraph InputFilePath[Input File Clusterization]
+        C[
+            Read & Parse
+            File pixels
+        ]
+        F[Print clusters]
+        B --> C
+    end
+
+    subgraph KMeans[KMeans]
+        E[K-MEANS Clusterization]
+        C --> E
+        D --> E
+        E --> F
+        E --> H
+    end
+
+    classDef args fill:#ffffff,stroke:#e6c229;
+    classDef compression fill:#ffffff,stroke:#4CAF50;
+    classDef clusterization fill:#ffffff,stroke:#673AB7;
+    classDef kmeans fill:#ffffff,stroke:#F44336;
+
+    class Args args
+    class ImageCompressionPath compression
+    class InputFilePath clusterization
+    class KMeans kmeans
+```
