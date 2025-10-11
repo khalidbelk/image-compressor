@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore opam cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.opam
+          key: ${{ matrix.os }}-opam-${{ hashFiles('**/*.opam') }}
+          restore-keys: |
+            ${{ matrix.os }}-opam-
+
+      - name: Install OCaml and OPAM
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 5
+
+      - name: Install dune
+        run: opam install dune
+
+      - name: Install dependencies
+        run: |
+          eval $(opam env)
+          opam install . --deps-only
+
+      - name: Build with make
+        run: |
+          eval $(opam env)
+          make
+
+      - name: Test build
+        run: |
+          eval $(opam env)
+          ./imageCompressor --help
