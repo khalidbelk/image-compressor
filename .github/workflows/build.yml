@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           eval $(opam env)
-          opam install . --deps-only
+          opam install -y camlimages
 
       - name: Build with make
         run: |
