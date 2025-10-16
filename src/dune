@@ -2,17 +2,5 @@
 (executable
  (public_name imageCompressor)
  (name main)
- (libraries camlimages.core camlimages.gif camlimages.jpeg camlimages.png)
- (modules
-    main
-    utils
-    file_io
-    types
-    math
-    parse_file
-    k_means
-    centroid
-    colors
-    image
- )
+ (libraries camlimages.core camlimages.jpeg camlimages.png)
 )

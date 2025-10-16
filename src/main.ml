@@ -42,7 +42,7 @@ let process_opt_arg rest =
 let main() =
   let args = Sys.argv in
   match Array.to_list args with
-    | [ _; "-h" ] -> usage 0;
+    | [ _; h ] when is_help_flag h -> usage 0;
     | _ :: "-k" :: k :: img_filepath :: rest ->
       let (img_pixels, (width, height)) = get_image_content img_filepath in
       let image = compress_image k img_pixels width height in

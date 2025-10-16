@@ -4,8 +4,6 @@
   File: centroid.ml
 *)
 
-open Math
-
 (* Returns [(d, c)] where 'd' is color distance between centroid 'c' and input color *)
 let with_distances centroids color =
   centroids

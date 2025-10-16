@@ -4,13 +4,16 @@
   File: images.ml
 *)
 
-open Images
+(* Aliases to distinguish CamlImages modules *)
+module CI_Images = Images
+module CI_Rgb24 = Rgb24
+
 open Types
 open K_means
 open File_io
 
 let get_pixel img x y =
-  let rgb = Rgb24.get img x y in
+  let rgb = CI_Rgb24.get img x y in
   (x, y), (rgb.r, rgb.g, rgb.b)
 
 let get_all_pixels img w h =
@@ -22,9 +25,9 @@ let get_all_pixels img w h =
 
 let read_image filepath =
   try
-    let img = Images.load filepath [] in
+    let img = CI_Images.load filepath [] in
     match img with
-    | Rgb24 img ->  (* Only handles Rgb24 format *)
+    | CI_Images.Rgb24 img ->  (* Only handles Rgb24 format *)
         let width = img.width in
         let height = img.height in
         let pixels = get_all_pixels img width height
@@ -37,19 +40,21 @@ let color_to_target (r, g, b) = { Color.r; g; b }
 
 let reconstruct_image (pixels: pixel list) w h =
   (* Create blank image *)
-  let img = Rgb24.create w h in
+  let img = CI_Rgb24.create w h in
     (* Fill pixels *)
     List.iter (fun ((x,y), color) ->
-      Rgb24.set img x y (color_to_target color)
+      CI_Rgb24.set img x y (color_to_target color)
     ) pixels;
   img
 
-let save_image (img: Rgb24.t) input_filepath (out_filepath: string option)  =
-  match out_filepath with
-  | Some name ->
-      let out_filepath = handle_out_name input_filepath name in
-      Images.save out_filepath None [] (Images.Rgb24 img)
-  | None -> Images.save input_filepath None [] (Images.Rgb24 img)
+let save_image (img: CI_Rgb24.t) input_filepath (out_filepath: string option)  =
+  let img = CI_Images.Rgb24 img in
+  let target_path =
+    match out_filepath with
+    | Some name -> handle_out_name input_filepath name
+    | None -> input_filepath
+  in
+    CI_Images.save target_path None [] img
 
 let compress_image k pixels w h =
   let k = int_of_string k in

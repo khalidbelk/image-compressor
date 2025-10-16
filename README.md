@@ -43,7 +43,7 @@ For **image** compression
 USAGE: ./imageCompressor [OPTIONS] -k K <input_image_filepath> [<output_filepath>]
 
     OPTIONS:
-            -h       display this message
+            -h | --help       display this message
 
     ARGS:
             K                       number of colors in the final image
@@ -69,7 +69,7 @@ Here are some [input files examples](/examples/text-inputs/)
 USAGE: ./imageCompressor [OPTIONS] -n N -l L -f F
 
     OPTIONS:
-            -h       display this message
+            -h | --help       display this message
 
     ARGS:
             N       number of colors in the final image
