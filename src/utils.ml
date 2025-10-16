@@ -4,11 +4,15 @@
   File: utils.ml
 *)
 
+let help_flag = ["-h";"--help"]
+
+let is_help_flag arg = List.mem arg help_flag
+
 let image_comp_usage =
   "IMAGE COMPRESSION MODE\n\n"
   ^ "\t./imageCompressor [OPTIONS] -k K <input_image_filepath> [<output_filepath>] \n\n"
   ^ "\tOPTIONS:\n"
-  ^ "\t     -h       display this message\n\n"
+  ^ "\t     -h | --help       display this message\n\n"
   ^ "\tARGS:\n"
   ^ "\t      K                      number of colors in the final image\n\n"
   ^ "\t     <output_filepath>       optional path/name for the compressed image
@@ -23,7 +27,7 @@ let print_clustering_usage =
   ^ "\t\n"
   ^ "\t./imageCompressor [OPTIONS] -n N -l L -f F \n\n"
   ^ "\tOPTIONS:\n"
-  ^ "\t     -h       display this message\n\n"
+  ^ "\t     -h | --help       display this message\n\n"
   ^ "\tARGS:\n"
   ^ "\t      N       number of colors in the final image\n"
   ^ "\t      L       convergence limit\n"
